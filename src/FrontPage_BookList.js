@@ -5,23 +5,27 @@ import { Link} from "react-router-dom"
 
 
 export function BookList() {
+
     const [books, setBooks] = useState([]);
     const [refresh_page, set_refresh_page]=useState(true)
     useEffect(() => {
-      if(refresh_page)
+      async function effect()
       {
-        axios
-          .get(API_SERVER)
-          .then((res) => {
-            setBooks(res.data.data);
-          })
-          .catch((err) => {
-            console.log('Error from BookList');
-          });
-          set_refresh_page(false)
-        }
         
-    }, [refresh_page]);
+          console.log(refresh_page)
+          await axios
+            .get(API_SERVER)
+            .then((res) => {
+              setBooks(res.data.data);
+            })
+            .catch((err) => {
+              console.log('Error from BookList');
+            });
+          set_refresh_page(false)
+        
+      }
+      effect()     
+    }, [books.length, refresh_page]);
   
     const bookList =
       books.length === 0
@@ -86,8 +90,8 @@ export function BookList() {
             <h2><a href="/show-book/123id">{book.title}</a></h2>
             <h3>{book.author}</h3>
             <p>{book.description}</p>
-            <button key={book._id} onClick={()=>{deletebook(book._id)}}>X</button>
-          </div>
+            
+          </div><button key={book._id} onClick={()=>{deletebook(book._id)}}>X</button>
         </div>
       </>
     )
