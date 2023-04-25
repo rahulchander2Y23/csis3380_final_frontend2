@@ -86,7 +86,7 @@ export function BookList() {
             <h2><a href="/show-book/123id">{book.title}</a></h2>
             <h3>{book.author}</h3>
             <p>{book.description}</p>
-            <button onClick={()=>{deletebook(book._id)}}>X</button>
+            <button key={book._id} onClick={()=>{deletebook(book._id)}}>X</button>
           </div>
         </div>
       </>
