@@ -18,8 +18,9 @@ export function BookList() {
           .catch((err) => {
             console.log('Error from BookList');
           });
+          set_refresh_page(false)
         }
-        set_refresh_page(false)
+        
     }, [refresh_page]);
   
     const bookList =
